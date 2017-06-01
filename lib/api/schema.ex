@@ -4,14 +4,14 @@ defmodule API.Schema do
   alias API.Repo
 
   object :top_news do
-    field :id
+    field :id, :id
     field :title, :string
     field :body, :string
     field :photo_url, :string
   end
 
   object :medal do
-    field :id
+    field :id, :id
     field :sport, :string
     field :event, :string
     field :gold, :integer
