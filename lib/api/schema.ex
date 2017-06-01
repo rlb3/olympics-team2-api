@@ -11,24 +11,22 @@ defmodule API.Schema do
   end
 
   object :medal do
-    field :id, :id
-    field :sport, :string
-    field :event, :string
-    field :gold, :integer
-    field :silver, :integer
-    field :bronze, :integer
-    field :bronze_country, :string
-    field :bronze_winner, :string
-    field :silver_country, :string
-    field :silver_winner, :string
-    field :bronze_country, :string
-    field :bronze_winner, :string
+    field :country, :string
+    field :total, :integer
+    field :total_gold, :integer
+    field :total_silver, :integer
+    field :total_bronze, :integer
   end
 
+
   query do
-    field :all, list_of(:medal) do
-    resolve fn _arg, _context ->
-        {:ok, Repo.all(API.Medal)}
+    field :medals, list_of(:medal) do
+      resolve fn _arg, _context ->
+        map = API.Medal.distinct_countries
+        |> Enum.map(fn country ->
+          API.Medal.metal_object(for: country)
+        end)
+        {:ok, map}
       end
     end
 
