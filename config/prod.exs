@@ -15,7 +15,8 @@ use Mix.Config
 # which you typically run after static files are built.
 config :api, API.Web.Endpoint,
   on_init: {API.Web.Endpoint, :load_from_system_env, []},
-  url: [host: "example.com", port: 80],
+  http: [port: {:system, "PORT"}],,
+  url: [host: "https://olympics-team2-api.herokuapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -61,4 +62,9 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+
+config :api, API.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: 10
+
