@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :api, API.Web.Endpoint,
   on_init: {API.Web.Endpoint, :load_from_system_env, []},
-  http: [port: {:system, "PORT"}],,
+  http: [port: {:system, "PORT"}],
   url: [host: "https://olympics-team2-api.herokuapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
