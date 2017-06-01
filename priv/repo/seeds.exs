@@ -25,11 +25,23 @@ defmodule CountryABV do
   end
 end
 
+API.Repo.delete_all API.Medal
+API.Repo.delete_all API.TopNews
+
 csv_data = File.stream!("2016-summer-olympic-medals.csv") |> CSV.decode! |> Enum.into([])
 
 for [sport, event, gold_count, silver_count, bronze_count, gold_country, gold_winner, silver_country, silver_winner, bronze_country, bronze_winner] <- csv_data do
     API.Repo.insert %API.Medal{sport: sport, event: event, gold: String.to_integer(gold_count), silver: String.to_integer(silver_count), bronze: String.to_integer(bronze_count), gold_country: CountryABV.find(gold_country), silver_country: CountryABV.find(silver_country), bronze_country: CountryABV.find(bronze_country), gold_winner: NameParser.parse(gold_winner), silver_winner: NameParser.parse(silver_winner), bronze_winner: NameParser.parse(bronze_winner)}
 end
 
+image_string = File.read!("image_files.txt")
+images = String.split(image_string, "\n")
+images_count = images |> Enum.count
 
-IO.puts CountryABV.find("FRA")
+
+1..25 |> Enum.each(fn _ ->
+  API.Repo.insert %API.TopNews{body: Elixilorem.paragraph,
+                               title: Elixilorem.sentence,
+                               date: Timex.shift(Date.utc_today, days: :random.uniform(10) * -1),
+                               photo_url: "/images/#{Enum.at(images, :random.uniform(images_count))}"}
+end)

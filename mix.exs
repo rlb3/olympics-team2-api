@@ -36,7 +36,9 @@ defmodule API.Mixfile do
      {:cowboy, "~> 1.0"},
      {:csv, "~> 2.0.0"},
      {:absinthe_plug, "~> 1.3"},
-     {:absinthe, "~> 1.3.0"}]
+     {:absinthe, "~> 1.3.0"},
+     {:elixilorem, "~> 0.0.1"},
+     {:timex, "~> 3.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

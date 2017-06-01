@@ -3,6 +3,13 @@ defmodule API.Schema do
   alias Absinthe.Type.{Field, Object}
   alias API.Repo
 
+  object :top_news do
+    field :id
+    field :title, :string
+    field :body, :string
+    field :photo_url, :string
+  end
+
   object :medal do
     field :id
     field :sport, :string
@@ -22,6 +29,12 @@ defmodule API.Schema do
     field :all, list_of(:medal) do
     resolve fn _arg, _context ->
         {:ok, Repo.all(API.Medal)}
+      end
+    end
+
+    field :top_news, list_of(:top_news) do
+      resolve fn _arg, _context ->
+        {:ok, Repo.all(API.TopNews)}
       end
     end
   end
