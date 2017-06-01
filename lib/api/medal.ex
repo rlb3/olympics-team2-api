@@ -1,6 +1,8 @@
 defmodule API.Medal do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
+
   alias API.Medal
 
 
@@ -27,5 +29,11 @@ defmodule API.Medal do
     medal
     |> cast(attrs, [:sport, :event, :gold, :silver, :bronze, :gold_country, :gold_winner, :silver_country, :silver_winner, :bronze_country, :bronze_winner])
     |> validate_required([:sport, :event, :gold, :silver, :bronze, :gold_country, :gold_winner, :silver_country, :silver_winner, :bronze_country, :bronze_winner])
+  end
+
+  def distinct_sport do
+    from m in API.Medal,
+      distinct: m.sport,
+      select: m.sport
   end
 end
