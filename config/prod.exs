@@ -66,5 +66,5 @@ config :logger, level: :info
 config :api, API.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  pool_size: 10
+  size: 10
 
