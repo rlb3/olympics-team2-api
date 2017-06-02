@@ -77,7 +77,8 @@ defmodule API.Schema do
         case API.Cache.get_news do
           nil ->
             top_news =
-              Repo.all(API.TopNews)
+              API.TopNews
+              |> Repo.all
               |> Enum.map(fn news ->
               %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", "")}
             end)

@@ -79,7 +79,8 @@ defmodule API.Cache do
   @doc false
   def handle_info(:init_news, state) do
     news =
-      API.Repo.all(API.TopNews)
+      API.TopNews
+      |> API.Repo.all
       |> Enum.map(fn news ->
       %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", "")}
     end)

@@ -43,7 +43,8 @@ defmodule API.Mixfile do
      {:timex, "~> 3.0"},
      {:excoveralls, "~> 0.6", only: :test},
      {:earmark, "~> 0.1", only: :dev},
-     {:ex_doc, "~> 0.11", only: :dev}]
+     {:ex_doc, "~> 0.11", only: :dev},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
