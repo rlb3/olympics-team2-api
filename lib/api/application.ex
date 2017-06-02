@@ -14,6 +14,7 @@ defmodule API.Application do
       supervisor(API.Web.Endpoint, []),
       # Start your own worker by calling: API.Worker.start_link(arg1, arg2, arg3)
       # worker(API.Worker, [arg1, arg2, arg3]),
+      worker(API.Cache, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

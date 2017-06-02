@@ -45,23 +45,34 @@ defmodule API.Schema do
   query do
     field :medals, list_of(:medal) do
       resolve fn _arg, _context ->
-        map = API.Medal.distinct_countries
-        |> Enum.map(fn country ->
-          API.Medal.metal_object(for: country)
-        end)
-        {:ok, map}
+        case API.Cache.get_medals do
+          nil ->
+            map = API.Medal.distinct_countries
+            |> Enum.map(fn country ->
+              API.Medal.metal_object(for: country)
+            end)
+            API.Cache.set_medals(map)
+            {:ok, map}
+          map ->
+            {:ok, map}
+        end
       end
     end
 
     field :top_news, list_of(:top_news) do
       resolve fn _arg, _context ->
-        top_news =
-          Repo.all(API.TopNews)
-          |> Enum.map(fn news ->
-             %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", "")}
-             end)
+        case API.Cache.get_news do
+          nil ->
+            top_news =
+              Repo.all(API.TopNews)
+              |> Enum.map(fn news ->
+              %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", "")}
+            end)
 
-        {:ok, top_news}
+            {:ok, top_news}
+          top_news ->
+            {:ok, top_news}
+        end
       end
     end
   end
