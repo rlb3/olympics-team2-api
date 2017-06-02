@@ -80,7 +80,7 @@ defmodule API.Schema do
               API.TopNews
               |> Repo.all
               |> Enum.map(fn news ->
-              %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", "")}
+              %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", ""), date: Timex.format!(news.date, "%m/%d/%Y", :strftime) }
             end)
 
             {:ok, top_news}
