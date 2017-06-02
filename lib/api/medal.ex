@@ -6,7 +6,7 @@ defmodule API.Medal do
   alias API.Medal
 
   @moduledoc """
-  Medal Schema
+  Medals Schema
   """
 
   @primary_key {:id, :binary_id, autogenerate: true}
