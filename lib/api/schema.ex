@@ -3,20 +3,40 @@ defmodule API.Schema do
   alias Absinthe.Type.{Field, Object}
   alias API.Repo
 
+  @moduledoc """
+  GraphQL schema
+
+  # Queries
+
+  ## topNews
+  - id: UUID
+  - title: String
+  - body: String
+  - photo_url: URL to image file
+  - photo_name: Image file name minus /images/
+
+  ## medals
+  - country: Country name
+  - total: Total number of medals for a country
+  - total_gold: Total number of gold medals for a country
+  - total_silver: Total number of silver medals for a country
+  - total_bronze: Total number ot silver medals for a country
+  """
+
   object :top_news do
     field :id, :id
-    field :title, :string
-    field :body, :string
-    field :photo_url, :string
-    field :photo_name, :string
+    field :title, :string, description: "News title"
+    field :body, :string, description: "News body"
+    field :photo_url, :string, description: "Photo URL"
+    field :photo_name, :string, description: "Photo Name"
   end
 
   object :medal do
-    field :country, :string
-    field :total, :integer
-    field :total_gold, :integer
-    field :total_silver, :integer
-    field :total_bronze, :integer
+    field :country, :string, description: "Country name"
+    field :total, :integer, description: "Total metals for the country"
+    field :total_gold, :integer, description: "Total gold metals for the country"
+    field :total_silver, :integer, description: "Total silver metals for the country"
+    field :total_bronze, :integer, description: "Total bronze metals for the country"
   end
 
 

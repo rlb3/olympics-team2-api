@@ -3,6 +3,11 @@ defmodule API.TopNews do
   import Ecto.Changeset
   alias API.TopNews
 
+  @moduledoc """
+  API.TopNews
+
+  No helper functions
+  """
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

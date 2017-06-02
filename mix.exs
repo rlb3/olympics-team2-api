@@ -41,7 +41,9 @@ defmodule API.Mixfile do
      {:absinthe, "~> 1.3.0"},
      {:elixilorem, "~> 0.0.1"},
      {:timex, "~> 3.0"},
-     {:excoveralls, "~> 0.6", only: :test}]
+     {:excoveralls, "~> 0.6", only: :test},
+     {:earmark, "~> 0.1", only: :dev},
+     {:ex_doc, "~> 0.11", only: :dev}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

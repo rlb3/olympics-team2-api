@@ -5,6 +5,9 @@ defmodule API.Medal do
 
   alias API.Medal
 
+  @moduledoc """
+  Medal Schema
+  """
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -31,6 +34,7 @@ defmodule API.Medal do
     |> validate_required([:sport, :event, :gold, :silver, :bronze, :gold_country, :gold_winner, :silver_country, :silver_winner, :bronze_country, :bronze_winner])
   end
 
+  @doc "Unique names of all the countries"
   def distinct_countries do
     query = from m in Medal,
       select: [m.gold_country, m.silver_country, m.bronze_country]
@@ -41,11 +45,13 @@ defmodule API.Medal do
     |> Enum.uniq
   end
 
+  @doc "Total number of metals for a country"
   def total_medals(for: country) do
     [gold_medals(for: country), silver_medals(for: country), bronze_medals(for: country)]
     |> Enum.sum
   end
 
+  @doc "Total number of gold metals for a country"
   def gold_medals(for: country) do
     query = from m in Medal,
       where: m.gold_country == ^country,
@@ -54,6 +60,7 @@ defmodule API.Medal do
     query |> API.Repo.all |> List.flatten |> Enum.sum
   end
 
+  @doc "Total number of silver metals for a country"
   def silver_medals(for: country) do
     query = from m in Medal,
       where: m.silver_country == ^country,
@@ -62,6 +69,7 @@ defmodule API.Medal do
     query |> API.Repo.all |> List.flatten |> Enum.sum
   end
 
+  @doc "Total number of bronze metals for a country"
   def bronze_medals(for: country) do
     query = from m in Medal,
       where: m.bronze_country == ^country,
@@ -70,6 +78,7 @@ defmodule API.Medal do
     query |> API.Repo.all |> List.flatten |> Enum.sum
   end
 
+  @doc "Helper function that produces a map to be used in the GraphQL schema"
   def metal_object(for: country) do
     %{
       country: country,
