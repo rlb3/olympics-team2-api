@@ -14,6 +14,7 @@ defmodule API.Schema do
   - body: String
   - photo_url: URL to image file
   - photo_name: Image file name minus /images/
+  - date: Date of story
 
   ## medals
   - country: Country name
@@ -29,6 +30,7 @@ defmodule API.Schema do
     field :body, :string, description: "News body"
     field :photo_url, :string, description: "Photo URL"
     field :photo_name, :string, description: "Photo Name"
+    field :date, :string, description: "Date"
   end
 
   object :medal do
