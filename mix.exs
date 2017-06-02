@@ -9,7 +9,9 @@ defmodule API.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test]]
   end
 
   # Configuration for the OTP application.
@@ -38,7 +40,8 @@ defmodule API.Mixfile do
      {:absinthe_plug, "~> 1.3"},
      {:absinthe, "~> 1.3.0"},
      {:elixilorem, "~> 0.0.1"},
-     {:timex, "~> 3.0"}]
+     {:timex, "~> 3.0"},
+     {:excoveralls, "~> 0.6", only: :test}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
