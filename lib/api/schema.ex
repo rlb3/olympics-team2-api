@@ -8,6 +8,7 @@ defmodule API.Schema do
     field :title, :string
     field :body, :string
     field :photo_url, :string
+    field :photo_name, :string
   end
 
   object :medal do
@@ -32,7 +33,13 @@ defmodule API.Schema do
 
     field :top_news, list_of(:top_news) do
       resolve fn _arg, _context ->
-        {:ok, Repo.all(API.TopNews)}
+        top_news =
+          Repo.all(API.TopNews)
+          |> Enum.map(fn news ->
+             %{news | photo_name: String.replace_prefix(news.photo_url, "/images/", "")}
+             end)
+
+        {:ok, top_news}
       end
     end
   end

@@ -11,6 +11,7 @@ defmodule API.TopNews do
     field :body, :string
     field :date, :date
     field :photo_url, :string
+    field :photo_name, :string, virtual: true
 
     timestamps()
   end
@@ -18,7 +19,7 @@ defmodule API.TopNews do
   @doc false
   def changeset(%TopNews{} = top_news, attrs) do
     top_news
-    |> cast(attrs, [:date, :body, :photo])
+    |> cast(attrs, [:date, :body, :photo, :photo_name])
     |> validate_required([:date, :body, :photo])
   end
 end
